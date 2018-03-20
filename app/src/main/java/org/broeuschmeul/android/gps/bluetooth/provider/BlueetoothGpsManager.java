@@ -396,7 +396,24 @@ public class BlueetoothGpsManager {
 											// Connect the device through the socket. This will block
 											// until it succeeds or throws an exception
 											Log.v(LOG_TAG, "connecting to socket");
-											gpsSocket.connect();
+											//gpsSocket.connect();
+                                            // check second times
+                                            try{
+                                                gpsSocket.connect();
+                                            }catch(IOException e) {
+                                                Log.e("",e.getMessage());
+                                                try {
+                                                    Log.e("","trying fallback...");
+                                                    //ve thu voi 2 ???, neu ko duoc --> thu voi
+                                                    gpsSocket =(BluetoothSocket) gpsDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(gpsDevice,1);
+                                                    gpsSocket.connect();
+                                                    Log.e("","Connected");
+                                                }
+                                                catch (Exception e2) {
+                                                    Log.e("", "Couldn't establish Bluetooth connection!");
+                                                }
+                                            }
+
 						        			Log.d(LOG_TAG, "connected to socket");
 											connected = true;
 											// reset eventual disabling cause
@@ -412,7 +429,8 @@ public class BlueetoothGpsManager {
 //									} else if (! bluetoothAdapter.isEnabled()) {
 //										setDisableReason(R.string.msg_bluetooth_disabled);
 									}
-								} catch (IOException connectException) {
+								//} catch (IOException connectException) {
+                                } catch (Exception connectException) {
 									// Unable to connect
 									Log.e(LOG_TAG, "error while connecting to socket", connectException);									
 									// disable(R.string.msg_bluetooth_gps_unavaible);

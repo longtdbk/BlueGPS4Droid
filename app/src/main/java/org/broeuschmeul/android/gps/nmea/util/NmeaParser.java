@@ -340,6 +340,10 @@ public class NmeaParser {
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
                         fix.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
                     }
+                    if (fix.getAccuracy()==0.0) {
+                        Log.v(LOG_TAG, "Fix Accuracy -> 100 m");
+                        fix.setAccuracy((float) 100.0);
+                    }
 
 					Log.v(LOG_TAG, "Fix: "+System.currentTimeMillis()+" "+fix);
 					hasGGA = true;
@@ -418,6 +422,10 @@ public class NmeaParser {
 					}
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
                         fix.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+                    }
+					if (fix.getAccuracy()==0.0) {
+                        Log.v(LOG_TAG, "Fix Accuracy -> 100 m");
+                        fix.setAccuracy((float) 100.0);
                     }
 					Log.v(LOG_TAG, "Fix: "+System.currentTimeMillis()+" "+fix);
 					hasRMC = true;
