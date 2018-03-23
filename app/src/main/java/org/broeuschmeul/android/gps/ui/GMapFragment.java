@@ -111,7 +111,7 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
             latitude = currentLocation.getLatitude();
             LatLng myPos = new LatLng(latitude,longitude);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                    myPos, 16));
+                    myPos, 18));
         }catch(SecurityException e){
 
         }
