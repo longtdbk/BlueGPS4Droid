@@ -241,8 +241,8 @@ public class NmeaParser {
 		Pattern xx = Pattern.compile("\\$([^*$]*)\\*([0-9A-F][0-9A-F])?\r\n");
 		Matcher m = xx.matcher(gpsSentence);
 		if (m.matches()){
-			nmeaSentence = m.group(0);
-			String sentence = m.group(1);
+            nmeaSentence = m.group(0);
+            String sentence = m.group(1);
 			String checkSum = m.group(2);
 			Log.v(LOG_TAG, "data: "+System.currentTimeMillis()+" "+sentence+" cheksum; "+checkSum +" control: "+String.format("%X",computeChecksum(sentence)));
 			SimpleStringSplitter splitter = new TextUtils.SimpleStringSplitter(',');

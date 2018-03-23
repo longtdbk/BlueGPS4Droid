@@ -105,7 +105,7 @@ public class BluetoothGpsActivity extends PreferenceActivity implements OnPrefer
         	deviceName = bluetoothAdapter.getRemoteDevice(deviceAddress).getName();
         }
         prefDevices.setSummary(getString(R.string.pref_bluetooth_device_summary, deviceName));
-    }   
+    }
 
 	private void updateDevicePreferenceList(){
         // update bluetooth device summary
