@@ -1,0 +1,291 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Default_Theme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Tomato_Theme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorTomato</item>
+        <item name="colorPrimaryDark">@color/colorTomato</item>
+        <item name="colorAccent">@color/colorTomato</item>
+    </style>
+
+    <style name="Coral_Theme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorCoral</item>
+        <item name="colorPrimaryDark">@color/colorCoral</item>
+        <item name="colorAccent">@color/colorCoral</item>
+    </style>
+
+    <style name="OrangeDark_Theme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorOrangeDark</item>
+        <item name="colorPrimaryDark">@color/colorOrangeDark</item>
+        <item name="colorAccent">@color/colorOrangeDark</item>
+    </style>
+
+    <style name="OrangeRed_Theme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorOrangeRed</item>
+        <item name="colorPrimaryDark">@color/colorOrangeRed</item>
+        <item name="colorAccent">@color/colorOrangeRed</item>
+    </style>
+
+    <style name="Gold_Theme">
+        <item name="colorPrimary">@color/colorGold</item>
+        <item name="colorPrimaryDark">@color/colorGold</item>
+        <item name="colorAccent">@color/colorGold</item>
+    </style>
+
+    <style name="DarkGoldenRod_Theme">
+        <item name="colorPrimary">@color/colorDarkGoldenRod</item>
+        <item name="colorPrimaryDark">@color/colorDarkGoldenRod</item>
+        <item name="colorAccent">@color/colorDarkGoldenRod</item>
+    </style>
+
+    <style name="GoldenRod_Theme">
+        <item name="colorPrimary">@color/colorGoldenRod</item>
+        <item name="colorPrimaryDark">@color/colorGoldenRod</item>
+        <item name="colorAccent">@color/colorGoldenRod</item>
+    </style>
+
+    <style name="DarkKhaki_Theme">
+        <item name="colorPrimary">@color/colorDarkKhaki</item>
+        <item name="colorPrimaryDark">@color/colorDarkKhaki</item>
+        <item name="colorAccent">@color/colorDarkKhaki</item>
+    </style>
+
+    <style name="Khaki_Theme">
+        <item name="colorPrimary">@color/colorKhaki</item>
+        <item name="colorPrimaryDark">@color/colorKhaki</item>
+        <item name="colorAccent">@color/colorKhaki</item>
+    </style>
+
+    <style name="Olive_Theme">
+        <item name="colorPrimary">@color/colorOlive</item>
+        <item name="colorPrimaryDark">@color/colorOlive</item>
+        <item name="colorAccent">@color/colorOlive</item>
+    </style>
+
+    <style name="YellowGreen_Theme">
+        <item name="colorPrimary">@color/colorYellowGreen</item>
+        <item name="colorPrimaryDark">@color/colorYellowGreen</item>
+        <item name="colorAccent">@color/colorYellowGreen</item>
+    </style>
+
+    <style name="OliveDrab_Theme">
+        <item name="colorPrimary">@color/colorOliveDrab</item>
+        <item name="colorPrimaryDark">@color/colorOliveDrab</item>
+        <item name="colorAccent">@color/colorOliveDrab</item>
+    </style>
+
+    <style name="ChartReuse_Theme">
+        <item name="colorPrimary">@color/colorChartReuse</item>
+        <item name="colorPrimaryDark">@color/colorChartReuse</item>
+        <item name="colorAccent">@color/colorChartReuse</item>
+    </style>
+
+    <style name="GreenYellow_Theme">
+        <item name="colorPrimary">@color/colorGreenYellow</item>
+        <item name="colorPrimaryDark">@color/colorGreenYellow</item>
+        <item name="colorAccent">@color/colorGreenYellow</item>
+    </style>
+
+    <style name="DarkGreen_Theme">
+        <item name="colorPrimary">@color/colorDarkGreen</item>
+        <item name="colorPrimaryDark">@color/colorDarkGreen</item>
+        <item name="colorAccent">@color/colorDarkGreen</item>
+    </style>
+
+    <style name="Green_Theme">
+        <item name="colorPrimary">@color/colorGreen</item>
+        <item name="colorPrimaryDark">@color/colorGreen</item>
+        <item name="colorAccent">@color/colorGreen</item>
+    </style>
+
+    <style name="LimeGreen_Theme">
+        <item name="colorPrimary">@color/colorLimeGreen</item>
+        <item name="colorPrimaryDark">@color/colorLimeGreen</item>
+        <item name="colorAccent">@color/colorLimeGreen</item>
+    </style>
+
+    <style name="LightGreen_Theme">
+        <item name="colorPrimary">@color/colorLightGreen</item>
+        <item name="colorPrimaryDark">@color/colorLightGreen</item>
+        <item name="colorAccent">@color/colorLightGreen</item>
+    </style>
+
+    <style name="DarkSeaGreen_Theme">
+        <item name="colorPrimary">@color/colorDarkSeaGreen</item>
+        <item name="colorPrimaryDark">@color/colorDarkSeaGreen</item>
+        <item name="colorAccent">@color/colorDarkSeaGreen</item>
+    </style>
+
+    <style name="SpringGreen_Theme">
+        <item name="colorPrimary">@color/colorSpringGreen</item>
+        <item name="colorPrimaryDark">@color/colorSpringGreen</item>
+        <item name="colorAccent">@color/colorSpringGreen</item>
+    </style>
+
+    <style name="SeaGreen_Theme">
+        <item name="colorPrimary">@color/colorSeaGreen</item>
+        <item name="colorPrimaryDark">@color/colorSeaGreen</item>
+        <item name="colorAccent">@color/colorSeaGreen</item>
+    </style>
+
+    <style name="MediumAquaMarine_Theme">
+        <item name="colorPrimary">@color/colorMediumAquaMarine</item>
+        <item name="colorPrimaryDark">@color/colorMediumAquaMarine</item>
+        <item name="colorAccent">@color/colorMediumAquaMarine</item>
+    </style>
+
+    <style name="LightSeaGreen_Theme">
+        <item name="colorPrimary">@color/colorLightSeaGreen</item>
+        <item name="colorPrimaryDark">@color/colorLightSeaGreen</item>
+        <item name="colorAccent">@color/colorLightSeaGreen</item>
+    </style>
+
+    <style name="Teal_Theme">
+        <item name="colorPrimary">@color/colorTeal</item>
+        <item name="colorPrimaryDark">@color/colorTeal</item>
+        <item name="colorAccent">@color/colorTeal</item>
+    </style>
+
+    <style name="Cyan_Theme">
+        <item name="colorPrimary">@color/colorCyan</item>
+        <item name="colorPrimaryDark">@color/colorCyan</item>
+        <item name="colorAccent">@color/colorCyan</item>
+    </style>
+
+    <style name="DeepSkyBlue_Theme">
+        <item name="colorPrimary">@color/colorDeepSkyBlue</item>
+        <item name="colorPrimaryDark">@color/colorDeepSkyBlue</item>
+        <item name="colorAccent">@color/colorDeepSkyBlue</item>
+    </style>
+
+    <style name="DodgerBlue_Theme">
+        <item name="colorPrimary">@color/colorDodgerBlue</item>
+        <item name="colorPrimaryDark">@color/colorDodgerBlue</item>
+        <item name="colorAccent">@color/colorDodgerBlue</item>
+    </style>
+
+    <style name="LightSkyBlue_Theme">
+        <item name="colorPrimary">@color/colorLightSkyBlue</item>
+        <item name="colorPrimaryDark">@color/colorLightSkyBlue</item>
+        <item name="colorAccent">@color/colorLightSkyBlue</item>
+    </style>
+
+    <style name="DarkBlue_Theme">
+        <item name="colorPrimary">@color/colorDarkBlue</item>
+        <item name="colorPrimaryDark">@color/colorDarkBlue</item>
+        <item name="colorAccent">@color/colorDarkBlue</item>
+    </style>
+
+    <style name="MediumBlue_Theme">
+        <item name="colorPrimary">@color/colorMediumBlue</item>
+        <item name="colorPrimaryDark">@color/colorMediumBlue</item>
+        <item name="colorAccent">@color/colorMediumBlue</item>
+    </style>
+
+    <style name="RoyalBlue_Theme">
+        <item name="colorPrimary">@color/colorRoyalBlue</item>
+        <item name="colorPrimaryDark">@color/colorRoyalBlue</item>
+        <item name="colorAccent">@color/colorRoyalBlue</item>
+    </style>
+
+    <style name="BlueViolet_Theme">
+        <item name="colorPrimary">@color/colorBlueViolet</item>
+        <item name="colorPrimaryDark">@color/colorBlueViolet</item>
+        <item name="colorAccent">@color/colorBlueViolet</item>
+    </style>
+
+    <style name="Indigo_Theme">
+        <item name="colorPrimary">@color/colorIndigo</item>
+        <item name="colorPrimaryDark">@color/colorIndigo</item>
+        <item name="colorAccent">@color/colorIndigo</item>
+    </style>
+
+    <style name="DarkOrchid_Theme">
+        <item name="colorPrimary">@color/colorDarkOrchid</item>
+        <item name="colorPrimaryDark">@color/colorDarkOrchid</item>
+        <item name="colorAccent">@color/colorDarkOrchid</item>
+    </style>
+
+    <style name="MediumOrchid_Theme">
+        <item name="colorPrimary">@color/colorMediumOrchid</item>
+        <item name="colorPrimaryDark">@color/colorMediumOrchid</item>
+        <item name="colorAccent">@color/colorMediumOrchid</item>
+    </style>
+
+    <style name="Magenta_Theme">
+        <item name="colorPrimary">@color/colorMagenta</item>
+        <item name="colorPrimaryDark">@color/colorMagenta</item>
+        <item name="colorAccent">@color/colorMagenta</item>
+    </style>
+
+    <style name="DeepPink_Theme">
+        <item name="colorPrimary">@color/colorDeepPink</item>
+        <item name="colorPrimaryDark">@color/colorDeepPink</item>
+        <item name="colorAccent">@color/colorDeepPink</item>
+    </style>
+
+    <style name="Pink_Theme">
+        <item name="colorPrimary">@color/colorPink</item>
+        <item name="colorPrimaryDark">@color/colorPink</item>
+        <item name="colorAccent">@color/colorPink</item>
+    </style>
+
+    <style name="Chocolate_Theme">
+        <item name="colorPrimary">@color/colorChocolate</item>
+        <item name="colorPrimaryDark">@color/colorChocolate</item>
+        <item name="colorAccent">@color/colorChocolate</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+    <style name="CustomTitle">
+        <item name="android:textColor">#00801A</item>
+    </style>
+
+    <style name="CustomTitle2">
+        <item name="android:textColor">#deffffff</item>
+    </style>
+
+    <style name="CustomText2">
+        <item name="android:textColor">#8affffff</item>
+    </style>
+
+    <style name="ListItemBigtext">
+        <item name="android:textColor">#25467A</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="ListItemSubtext">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+</resources>

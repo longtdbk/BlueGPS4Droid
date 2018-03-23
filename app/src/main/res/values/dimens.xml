@@ -1,0 +1,29 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="size_image">40dp</dimen>
+    <dimen name="size_image_checked">30dp</dimen>
+    <dimen name="size_image_small">30dp</dimen>
+    <dimen name="size_image_transaction">32dp</dimen>
+    <dimen name="width_trend_month">40dp</dimen>
+    <dimen name="text_size_transaction_title">15sp</dimen>
+    <dimen name="text_size_transaction_sub_title">10sp</dimen>
+    <dimen name="text_size_transaction_amount">14sp</dimen>
+    <dimen name="text_size_default_big">20sp</dimen>
+    <dimen name="margin_left">15dp</dimen>
+    <dimen name="margin_right">15dp</dimen>
+    <dimen name="margin_top">15dp</dimen>
+    <dimen name="margin_top_sub_title">25dp</dimen>
+    <dimen name="size_barchart_trend">300dp</dimen>
+
+    <dimen name="tablet_list_width">300dp</dimen>
+    <dimen name="phone_list_height">200dp</dimen>
+    <dimen name="info_command_size">35dp</dimen>
+    <dimen name="text_command_size">12sp</dimen>
+</resources>
