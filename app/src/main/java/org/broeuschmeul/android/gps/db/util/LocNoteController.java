@@ -38,7 +38,7 @@ public class LocNoteController {
     }
 
     // createNetwork
-    public LocationNote createLocationNote(double longitude, double latitude,String note ) {
+    public LocationNote createLocationNote(double latitude, double longitude,String note ) {
         ContentValues values = new ContentValues();
 
         values.put(GpsSqlHelper.COLUMN_LOC_LONGITUDE, longitude);
@@ -147,11 +147,11 @@ public class LocNoteController {
 
     private LocationNote cursorToLocNote(Cursor cursor) {
         LocationNote locationNote = new LocationNote();
-        locationNote.setID(cursor.getInt(1));
-        locationNote.setTime(cursor.getString(2));
-        locationNote.setLongitude(cursor.getDouble(3));
-        locationNote.setLatitude(cursor.getDouble(4));
-        locationNote.setNote(cursor.getString(5));
+        locationNote.setID(cursor.getInt(0));
+        locationNote.setTime(cursor.getString(1));
+        locationNote.setLongitude(cursor.getDouble(2));
+        locationNote.setLatitude(cursor.getDouble(3));
+        locationNote.setNote(cursor.getString(4));
         return locationNote;
 
     }

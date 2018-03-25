@@ -13,9 +13,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +31,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.broeuschmeul.android.gps.SharedInfo;
 import org.broeuschmeul.android.gps.bluetooth.provider.R;
+import org.broeuschmeul.android.gps.db.util.LocNoteController;
 
 import static org.broeuschmeul.android.gps.bluetooth.provider.R.id.map;
 
@@ -42,19 +47,24 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
     private int currentInd;
     private final int[] MAP_TYPES = new int []{GoogleMap.MAP_TYPE_NORMAL,GoogleMap.MAP_TYPE_SATELLITE,GoogleMap.MAP_TYPE_HYBRID,GoogleMap.MAP_TYPE_TERRAIN};
     FloatingActionButton btnMapType;
+    ImageButton btnCreate;
     Marker mMarker;
+    private LocNoteController locNoteController;
+    private EditText editNote;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.map_view, container, false);
         activity = getActivity();
-        //map = ((MapFragment)activity.getFragmentManager().findFragmentById(R.id.map)).getMap();
+        locNoteController = new LocNoteController(activity);
+        locNoteController.open();
         MapFragment mapFragment = (MapFragment) activity.getFragmentManager()
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
         //mMarker = new Marker();
         btnMapType = (FloatingActionButton)v.findViewById(R.id.btMapType);
+        btnCreate = (ImageButton)v.findViewById(R.id.btCreate);
         return v;
     }
 
@@ -82,6 +92,13 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
                 currentInd ++;
                 if(currentInd > MAP_TYPES.length-1){currentInd = 0;}
                 mMap.setMapType(MAP_TYPES[currentInd]);
+            }
+        });
+
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayAddLocNoteDialog();
             }
         });
     }
@@ -113,11 +130,28 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     myPos, 18));
         }catch(SecurityException e){
-
+            Log.d("GPSBlue","Error " + e.getMessage());
         }
 
     }
 
+
+
+    public void setLocation(){
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        // new version must check permission :)
+        try {
+            longitude = SharedInfo.getSelf().getLongitude();
+            latitude = SharedInfo.getSelf().getLattitude();
+            LatLng myPos = new LatLng(latitude,longitude);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    myPos, 18));
+        }catch(SecurityException e){
+            Log.d("GPSBlue","Error " + e.getMessage());
+        }
+
+    }
 
     /** Called when the user clicks a marker. */
     @Override
@@ -144,32 +178,38 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
 
 
     private void displayAddLocNoteDialog(){
+        latitude = SharedInfo.getSelf().getLattitude();
+        longitude = SharedInfo.getSelf().getLongitude();
+        String txtLat = String.valueOf(latitude);
+        String txtLon = String.valueOf(longitude);
+
+
+
         View messageView = activity.getLayoutInflater().inflate(R.layout.location_note_item, null, false);
+
+        editNote = (EditText) messageView.findViewById(R.id.editTextNote);
         // we need this to enable html links
         TextView textViewLat = (TextView) messageView.findViewById(R.id.txtLatEdit);
-        textViewLat.setText(textViewLat.getText() + "12222");
-        //textView.setMovementMethod(LinkMovementMethod.getInstance());
-        // When linking text, force to always use default color. This works
-        // around a pressed color state bug.
+        textViewLat.setText(textViewLat.getText() + txtLat);
+
         int defaultColor = textViewLat.getTextColors().getDefaultColor();
         textViewLat.setTextColor(defaultColor);
         TextView textViewLong = (TextView) messageView.findViewById(R.id.txtLongEdit);
-        textViewLong.setText(textViewLong.getText() + "12334");
+        textViewLong.setText(textViewLong.getText() + txtLon);
         textViewLong.setTextColor(defaultColor);
 
-        AlertDialog  alertDialog = new AlertDialog.Builder(activity).create();
+        final AlertDialog  alertDialog = new AlertDialog.Builder(activity).create();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        //builder.setTitle(R.string.about_title);
-        //builder.setIcon(R.drawable.gplv3_icon);
-        alertDialog.setTitle(R.string.about_title);
+        alertDialog.setTitle("Add");
         alertDialog.setView(messageView);
         alertDialog.setIcon(R.drawable.gplv3_icon);
-        //builder.setView(messageView);
-        //builder.show();
+
         alertDialog.setButton( Dialog.BUTTON_POSITIVE, "Submit", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                String note = editNote.getText().toString();
+                locNoteController.createLocationNote(latitude,longitude, note);
                 Toast.makeText(activity,
-                        "Submit success",
+                        "Add success",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -178,7 +218,7 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
         alertDialog.setButton( Dialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener()    {
                 public void onClick(DialogInterface dialog, int which) {
                     Toast.makeText(activity,
-                            "Cancel success",
+                            "Cancel",
                             Toast.LENGTH_SHORT).show();
                 }});
 

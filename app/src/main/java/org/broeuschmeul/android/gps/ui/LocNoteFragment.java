@@ -30,12 +30,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.broeuschmeul.android.gps.bluetooth.provider.BluetoothGpsProviderService.PREF_TRACK_FILE_DIR;
 import static org.broeuschmeul.android.gps.bluetooth.provider.BluetoothGpsProviderService.PREF_TRACK_FILE_PREFIX;
+import static org.broeuschmeul.android.gps.bluetooth.provider.R.id.editTextNote;
 
 /**
  * Created by admin on 3/23/2018.
@@ -54,7 +54,7 @@ public class LocNoteFragment extends Fragment {
     private boolean preludeWritten = false;
     private Button btnExport;
     private Button btnClearAll;
-
+    private EditText editNote;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,8 +84,10 @@ public class LocNoteFragment extends Fragment {
 
 
         locNoteController = new LocNoteController(activity);
+        locNoteController.open();
         ListView listLocNote = (ListView)v.findViewById(R.id.list_loc_note);
         adapter = new LocNoteAdapter(getActivity().getApplicationContext(), inflater, getData());
+        adapter.notifyDataSetChanged();
         listLocNote.setAdapter(adapter);
 
         listLocNote.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,12 +110,12 @@ public class LocNoteFragment extends Fragment {
     private List<LocationNote> getData(){
         LocNoteController locNoteController = new LocNoteController(getContext());
         locNoteController.open();
-        List<LocationNote> locNoteList = new ArrayList<>();
-        locNoteList.add(new LocationNote("2018-12-23",111.333333,2222.4444444,"Test Location And GPS from far far away"));
-        locNoteList.add(new LocationNote("222",1.3,2.5,"Test 2"));
-        locNoteList.add(new LocationNote("333",1.3,2.5,"Test 3"));
-        locNoteList.add(new LocationNote("444",1.3,2.5,"Test 4"));
-        //List<LocationNote> locNoteList = locNoteController.getAllLocationNotes();
+//        List<LocationNote> locNoteList = new ArrayList<>();
+//        locNoteList.add(new LocationNote("2018-12-23",111.333333,2222.4444444,"Test Location And GPS from far far away"));
+//        locNoteList.add(new LocationNote("222",1.3,2.5,"Test 2"));
+//        locNoteList.add(new LocationNote("333",1.3,2.5,"Test 3"));
+//        locNoteList.add(new LocationNote("444",1.3,2.5,"Test 4"));
+        List<LocationNote> locNoteList = locNoteController.getAllLocationNotes();
         //List<LocationNote> locationNotes = locNoteController.getAllLocationNotes();
         //locNoteList.addAll(locationNotes);
         locNoteController.close();
@@ -133,9 +135,9 @@ public class LocNoteFragment extends Fragment {
         textViewLong.setText(textViewLong.getText() +  String.valueOf(longitude));
         textViewLong.setTextColor(defaultColor);
 
-        EditText editTextNote = (EditText) messageView.findViewById(R.id.editTextNote);
-        editTextNote.setText(note);
-        editTextNote.setTextColor(defaultColor);
+        editNote = (EditText) messageView.findViewById(editTextNote);
+        editNote.setText(note);
+        editNote.setTextColor(defaultColor);
 
         AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -146,9 +148,12 @@ public class LocNoteFragment extends Fragment {
         alertDialog.setIcon(R.drawable.gplv3_icon);
         //builder.setView(messageView);
         //builder.show();
+
         alertDialog.setButton( Dialog.BUTTON_POSITIVE, "Submit", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                String result = locNoteController.updateLocationNote(rowID,longitude,latitude,note);
+                String noteNew = editNote.getText().toString();
+                String result = locNoteController.updateLocationNote(rowID,longitude,latitude,noteNew);
+                adapter.refreshLoc(locNoteController.getAllLocationNotes());
                 Toast.makeText(activity,
                         result,
                         Toast.LENGTH_SHORT).show();
@@ -159,6 +164,7 @@ public class LocNoteFragment extends Fragment {
         alertDialog.setButton( Dialog.BUTTON_NEGATIVE, "Delete", new DialogInterface.OnClickListener()    {
             public void onClick(DialogInterface dialog, int which) {
                 String result =locNoteController.deleteLocationNote(rowID);
+                adapter.refreshLoc(locNoteController.getAllLocationNotes());
                 Toast.makeText(activity,
                         result,
                         Toast.LENGTH_SHORT).show();
@@ -171,7 +177,7 @@ public class LocNoteFragment extends Fragment {
         SimpleDateFormat fmt = new SimpleDateFormat("_yyyy-MM-dd_HH-mm-ss'.loc'");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         String trackDirName = sharedPreferences.getString(PREF_TRACK_FILE_DIR, this.getString(R.string.defaultTrackFileDirectory));
-        String trackFilePrefix = sharedPreferences.getString(PREF_TRACK_FILE_PREFIX, this.getString(R.string.defaultTrackFilePrefix));
+        String trackFilePrefix = sharedPreferences.getString(PREF_TRACK_FILE_PREFIX, this.getString(R.string.locationTrackFilePrefix));
         trackFile = new File(trackDirName,trackFilePrefix+fmt.format(new Date()));
         Log.d(LOG_TAG, "Writing the Location Note file: "+trackFile.getAbsolutePath());
         File trackDir = trackFile.getParentFile();

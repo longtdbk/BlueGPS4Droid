@@ -221,6 +221,7 @@ public class NmeaParser {
 			if (lm != null && mockGpsEnabled){
 				lm.setTestProviderLocation(mockLocationProvider, fix);
 				Log.v(LOG_TAG, "New Fix notified to Location Manager: "+mockLocationProvider);
+                SharedInfo.getSelf().mainActivity.getMapFragment().setLocation();
 			}
 			this.fix = null;
 		}

@@ -61,4 +61,10 @@ public class LocNoteAdapter extends ArrayAdapter {
         return 0;
     }
 
+    public void refreshLoc(List<LocationNote> locationNotes) {
+        this.datas.clear();
+        this.datas.addAll(locationNotes);
+        notifyDataSetChanged();
+    }
+
 }
