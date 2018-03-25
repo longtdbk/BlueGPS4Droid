@@ -66,27 +66,7 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
         btnMapType = (FloatingActionButton)v.findViewById(R.id.btMapType);
         btnCreate = (ImageButton)v.findViewById(R.id.btCreate);
 
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    while(true) {
-                        synchronized (this) {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    setLocation();
-                                }
-                            });
-                            wait(5000);
-                        }
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            };
-        };
-        thread.start();
+
 
         return v;
     }
@@ -124,6 +104,28 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
                 displayAddLocNoteDialog();
             }
         });
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    while(true) {
+                        synchronized (this) {
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getLocation();
+                                }
+                            });
+                            wait(5000);
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            };
+        };
+        thread.start();
     }
 
     @Override
