@@ -71,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //respond to menu item selection
         switch (item.getItemId()) {
-            case R.id.about:
+            case R.id.setting:
                 startActivity(new Intent(this, BluetoothGpsActivity.class));
                 return true;
-            case R.id.help:
-                startActivity(new Intent(this, BluetoothGpsActivity.class));
-                return true;
+//            case R.id.help:
+//                startActivity(new Intent(this, BluetoothGpsActivity.class));
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
