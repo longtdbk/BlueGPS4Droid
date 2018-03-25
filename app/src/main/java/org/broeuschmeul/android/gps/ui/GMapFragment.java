@@ -65,6 +65,29 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
         //mMarker = new Marker();
         btnMapType = (FloatingActionButton)v.findViewById(R.id.btMapType);
         btnCreate = (ImageButton)v.findViewById(R.id.btCreate);
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    while(true) {
+                        synchronized (this) {
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setLocation();
+                                }
+                            });
+                            wait(5000);
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            };
+        };
+        thread.start();
+
         return v;
     }
 
@@ -147,7 +170,7 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
             LatLng myPos = new LatLng(latitude,longitude);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     myPos, 18));
-        }catch(SecurityException e){
+        }catch(Exception e){
             Log.d("GPSBlue","Error " + e.getMessage());
         }
 

@@ -1,13 +1,16 @@
 package org.broeuschmeul.android.gps.ui;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.broeuschmeul.android.gps.SharedInfo;
 import org.broeuschmeul.android.gps.bluetooth.provider.R;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +40,7 @@ public class StatusFragment extends Fragment {
     TextView textUTM;
     TextView textAccuracy;
     TextView textTime;
+    private Activity activity;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,12 +81,100 @@ public class StatusFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_status, container, false);
+        activity = getActivity();
         textLatLon = (TextView)(v.findViewById(R.id.txtLatLon));
         textAltitude = (TextView)(v.findViewById(R.id.txtAltitude));
         textTime = (TextView)(v.findViewById(R.id.txtTime));
         textAccuracy = (TextView)(v.findViewById(R.id.txtAccuracy));
         textSpeed = (TextView)(v.findViewById(R.id.txtSpeed));
         textLatLon = (TextView)(v.findViewById(R.id.txtLatLon));
+        Handler handler = new Handler();
+//        Runnable updateViewRunable= new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    setTextTime();
+//                    setTextLatLon(SharedInfo.getSelf().getLattitude(), SharedInfo.getSelf().getLongitude());
+//                    setTextSpeed(SharedInfo.getSelf().getSpeed());
+//                    setTextAccuracy(SharedInfo.getSelf().getAccuracy());
+//                    setTextAltitude(SharedInfo.getSelf().getAltitude());
+//                } catch (Exception ex) {
+//                    Log.d("GPSBlue","Error in update View:" + ex.getMessage());
+//                }
+//            }};
+//        handler.postDelayed(updateViewRunable,1000);
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    while(true) {
+                        synchronized (this) {
+                            wait(1000);
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setTextTime();
+                                    setTextLatLon(SharedInfo.getSelf().getLattitude(), SharedInfo.getSelf().getLongitude());
+                                    setTextSpeed(SharedInfo.getSelf().getSpeed());
+                                    setTextAccuracy(SharedInfo.getSelf().getAccuracy());
+                                    setTextAltitude(SharedInfo.getSelf().getAltitude());
+
+                                }
+                            });
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            };
+        };
+        thread.start();
+
+
+//        activity.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    while(true) {
+//                        Thread.sleep(1000);
+//                        setTextTime();
+//                        setTextLatLon(SharedInfo.getSelf().getLattitude(), SharedInfo.getSelf().getLongitude());
+//                        setTextSpeed(SharedInfo.getSelf().getSpeed());
+//                        setTextAccuracy(SharedInfo.getSelf().getAccuracy());
+//                        setTextAltitude(SharedInfo.getSelf().getAltitude());
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
+//        Thread thread = new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    while(true) {
+//                        sleep(1000);
+//                        setTextTime();
+//                        setTextLatLon(SharedInfo.getSelf().getLattitude(), SharedInfo.getSelf().getLongitude());
+//                        setTextSpeed(SharedInfo.getSelf().getSpeed());
+//                        setTextAccuracy(SharedInfo.getSelf().getAccuracy());
+//                        setTextAltitude(SharedInfo.getSelf().getAltitude());
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        };
+//
+//        thread.start();
+
+//        Thread updateViewThread = new Thread(updateViewRunable);
+//        updateViewThread.start();
+
+
         return v;
     }
 
