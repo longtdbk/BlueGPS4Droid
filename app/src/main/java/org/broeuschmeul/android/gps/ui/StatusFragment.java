@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import org.broeuschmeul.android.gps.bluetooth.provider.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -27,7 +30,13 @@ public class StatusFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    TextView textLat;
+    TextView textLatLon;
+    TextView textAltitude;
+    TextView textSpeed;
+    TextView textCourseOverGround;
+    TextView textUTM;
+    TextView textAccuracy;
+    TextView textTime;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,7 +77,12 @@ public class StatusFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_status, container, false);
-        textLat = (TextView)(v.findViewById(R.id.txtLat));
+        textLatLon = (TextView)(v.findViewById(R.id.txtLatLon));
+        textAltitude = (TextView)(v.findViewById(R.id.txtAltitude));
+        textTime = (TextView)(v.findViewById(R.id.txtTime));
+        textAccuracy = (TextView)(v.findViewById(R.id.txtAccuracy));
+        textSpeed = (TextView)(v.findViewById(R.id.txtSpeed));
+        textLatLon = (TextView)(v.findViewById(R.id.txtLatLon));
         return v;
     }
 
@@ -95,7 +109,46 @@ public class StatusFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void setTextView(String lat){
-        textLat.setText(lat);
+    public void setTextView(double lat, double lon, double speed, double altitude, double utm, double cog){
+        textLatLon.setText(String.valueOf(lat+"/n"+lon));
+        textSpeed.setText(String.valueOf(speed));
+        textAltitude.setText(String.valueOf(altitude));
+        textUTM.setText(String.valueOf(utm));
+        textCourseOverGround.setText(String.valueOf(cog));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = sdf.format(new Date());
+        textTime.setText(currentDateTime);
+
     }
+
+    public void setTextLatLon(double lat, double lon){
+        textLatLon.setText(String.valueOf(lat+"/"+lon));
+    }
+
+    public void setTextSpeed(double speed){
+        textSpeed.setText(String.valueOf(speed));
+    }
+
+    public void setTextAltitude(double altitude){
+        textAltitude.setText(String.valueOf(altitude));
+    }
+
+    public void setTextUTM(double utm){
+        textUTM.setText(String.valueOf(utm));
+    }
+
+    public void setTextCOG(double cog){
+        textCourseOverGround.setText(String.valueOf(cog));
+    }
+
+    public void setTextAccuracy(double accuracy){
+        textAccuracy.setText(String.valueOf(accuracy));
+    }
+
+    public void setTextTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = sdf.format(new Date());
+        textTime.setText(currentDateTime);
+    }
+
 }

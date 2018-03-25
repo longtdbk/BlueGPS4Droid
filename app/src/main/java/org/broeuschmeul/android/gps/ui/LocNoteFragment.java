@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,6 +52,8 @@ public class LocNoteFragment extends Fragment {
     private PrintWriter writer;
     private File trackFile;
     private boolean preludeWritten = false;
+    private Button btnExport;
+    private Button btnClearAll;
 
 
     @Override
@@ -58,6 +61,27 @@ public class LocNoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_loc_note_list, container, false);
         activity = getActivity();
+
+        btnClearAll = (Button)v.findViewById(R.id.btClearAll);
+        btnClearAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        btnExport = (Button)v.findViewById(R.id.btExportFile);
+        btnExport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writeLocNoteFile();
+                Toast.makeText(activity,
+                        "Export File Successfully!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         locNoteController = new LocNoteController(activity);
         ListView listLocNote = (ListView)v.findViewById(R.id.list_loc_note);
@@ -85,7 +109,7 @@ public class LocNoteFragment extends Fragment {
         LocNoteController locNoteController = new LocNoteController(getContext());
         locNoteController.open();
         List<LocationNote> locNoteList = new ArrayList<>();
-        locNoteList.add(new LocationNote("111",1.3,2.5,"Test 1"));
+        locNoteList.add(new LocationNote("2018-12-23",111.333333,2222.4444444,"Test Location And GPS from far far away"));
         locNoteList.add(new LocationNote("222",1.3,2.5,"Test 2"));
         locNoteList.add(new LocationNote("333",1.3,2.5,"Test 3"));
         locNoteList.add(new LocationNote("444",1.3,2.5,"Test 4"));

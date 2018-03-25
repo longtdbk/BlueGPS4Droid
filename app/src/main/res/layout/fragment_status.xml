@@ -1,14 +1,252 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.broeuschmeul.android.gps.ui.StatusFragment">
+    android:background="@color/cast_expanded_controller_background_color"
+    android:padding="10dip" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/txtLat"
-        android:text="GPS Status" />
+        android:layout_height="150dp"
+        android:padding="1dip"
+        >
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
 
-</FrameLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:padding="2dip"
+                >
+
+                <TextView
+                    android:id="@+id/titleDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|top"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/status_time"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:text="@string/status_default_time"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:padding="2dip"
+                >
+
+                <TextView
+                    android:id="@+id/titleAltitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|top"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:text="Altitude"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtAltitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:text="---"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:padding="1dip"
+        >
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:padding="2dip"
+                >
+
+                <TextView
+                    android:id="@+id/titleLatLon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|top"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/status_lat_lon"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtLatLon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:text="@string/status_default_value"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:padding="2dip"
+                >
+
+                <TextView
+                    android:id="@+id/titleAccuracy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|top"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/status_accuracy"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtAccuracy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:text="@string/status_default_value"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:padding="1dip"
+        >
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:padding="2dip"
+                >
+
+                <TextView
+                    android:id="@+id/titleSpeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|top"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/status_speed"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:text="@string/status_default_value"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:padding="2dip"
+                >
+
+                <TextView
+                    android:id="@+id/titleCourseOverGround"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|top"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/status_COG"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtCourseOverGround"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:text="@string/status_default_value"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
+

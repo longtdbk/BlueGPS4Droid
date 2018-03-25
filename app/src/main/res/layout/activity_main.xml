@@ -22,7 +22,7 @@
             android:background="#212121"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="@color/colorTextColor">
+            app:titleTextColor="@color/white">
 
         </android.support.v7.widget.Toolbar>
 
@@ -31,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#272727"
-            app:tabTextColor="@color/colorTextColor"/>
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/white"/>
 
     </android.support.design.widget.AppBarLayout>
 

@@ -31,6 +31,8 @@ import android.text.TextUtils;
 import android.text.TextUtils.SimpleStringSplitter;
 import android.util.Log;
 
+import org.broeuschmeul.android.gps.SharedInfo;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -208,6 +210,13 @@ public class NmeaParser {
 		hasGGA = false;
 		hasRMC=false;
 		if (fix != null){
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+                fix.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+            }
+            if (fix.getAccuracy()==0.0) {
+                Log.v(LOG_TAG, "Fix Accuracy -> 100 m");
+                fix.setAccuracy((float) 100.0);
+            }
 			Log.v(LOG_TAG, "New Fix: "+System.currentTimeMillis()+" "+fix);
 			if (lm != null && mockGpsEnabled){
 				lm.setTestProviderLocation(mockLocationProvider, fix);
@@ -240,6 +249,7 @@ public class NmeaParser {
 		Log.v(LOG_TAG, "data: "+System.currentTimeMillis()+" "+gpsSentence);
 		Pattern xx = Pattern.compile("\\$([^*$]*)\\*([0-9A-F][0-9A-F])?\r\n");
 		Matcher m = xx.matcher(gpsSentence);
+        SharedInfo.getSelf().mainActivity.getStatusFragment().setTextTime();
 		if (m.matches()){
             nmeaSentence = m.group(0);
             String sentence = m.group(1);
@@ -321,29 +331,34 @@ public class NmeaParser {
 					}
 					if (lat != null && !lat.equals("")){
 						fix.setLatitude(parseNmeaLatitude(lat,latDir));
+                        SharedInfo.getSelf().setLattitude(fix.getLatitude());
+
 					}
 					if (lon != null && !lon.equals("")){
 						fix.setLongitude(parseNmeaLongitude(lon,lonDir));
+                        SharedInfo.getSelf().setLongitude(fix.getLongitude());
+                        SharedInfo.getSelf().mainActivity.getStatusFragment().setTextLatLon(fix.getLatitude(),fix.getLongitude());
 					}
 					if (hdop != null && !hdop.equals("")){
 						fix.setAccuracy(Float.parseFloat(hdop)*precision);
+
 					}
 					if (alt != null && !alt.equals("")){
 						fix.setAltitude(Double.parseDouble(alt));
+                        SharedInfo.getSelf().setAltitude(fix.getAltitude());
+                        SharedInfo.getSelf().mainActivity.getStatusFragment().setTextAltitude(fix.getAltitude());
 					}
 					if (nbSat != null && !nbSat.equals("")){
 						Bundle extras = new Bundle();
 						extras.putInt("satellites", Integer.parseInt(nbSat));
 						fix.setExtras(extras);
+                        SharedInfo.getSelf().setSatInUse(Integer.parseInt(nbSat));
 					}
 
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-                        fix.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-                    }
-                    if (fix.getAccuracy()==0.0) {
-                        Log.v(LOG_TAG, "Fix Accuracy -> 100 m");
-                        fix.setAccuracy((float) 100.0);
-                    }
+
+
+//                    SharedInfo.getSelf().setAccuracy(fix.getAccuracy());
+//                    SharedInfo.getSelf().mainActivity.getStatusFragment().setTextAccuracy(fix.getAccuracy());
 
 					Log.v(LOG_TAG, "Fix: "+System.currentTimeMillis()+" "+fix);
 					hasGGA = true;
@@ -402,6 +417,8 @@ public class NmeaParser {
 					}				
 					if (! time.equals(fixTime)){
 						notifyFix(fix);
+                        SharedInfo.getSelf().setAccuracy(fix.getAccuracy());
+                        SharedInfo.getSelf().mainActivity.getStatusFragment().setTextAccuracy(fix.getAccuracy());
 						fix = new Location(mockLocationProvider);
 						fixTime = time;
 						fixTimestamp = parseNmeaTime(time);
@@ -410,23 +427,31 @@ public class NmeaParser {
 					} 
 					if (lat != null && !lat.equals("")){
 						fix.setLatitude(parseNmeaLatitude(lat,latDir));
+                        SharedInfo.getSelf().setLattitude(fix.getLatitude());
 					}
 					if (lon != null && !lon.equals("")){
 						fix.setLongitude(parseNmeaLongitude(lon,lonDir));
+                        SharedInfo.getSelf().setLongitude(fix.getLongitude());
+                        SharedInfo.getSelf().mainActivity.getStatusFragment().setTextLatLon(fix.getLatitude(),fix.getLongitude());
+
 					}
 					if (speed != null && !speed.equals("")){
 						fix.setSpeed(parseNmeaSpeed(speed, "N"));
+                        SharedInfo.getSelf().setSpeed(fix.getSpeed());
+                        SharedInfo.getSelf().mainActivity.getStatusFragment().setTextSpeed(fix.getSpeed());
 					} 
 					if (bearing != null && !bearing.equals("")){
 						fix.setBearing(Float.parseFloat(bearing));
 					}
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-                        fix.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-                    }
-					if (fix.getAccuracy()==0.0) {
-                        Log.v(LOG_TAG, "Fix Accuracy -> 100 m");
-                        fix.setAccuracy((float) 100.0);
-                    }
+//                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+//                        fix.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+//                    }
+//					if (fix.getAccuracy()==0.0) {
+//                        Log.v(LOG_TAG, "Fix Accuracy -> 100 m");
+//                        fix.setAccuracy((float) 100.0);
+//                    }
+
+
 					Log.v(LOG_TAG, "Fix: "+System.currentTimeMillis()+" "+fix);
 					hasRMC = true;
 					if (hasGGA && hasRMC){
@@ -492,6 +517,8 @@ public class NmeaParser {
 				splitter.next();
 				// Speed over the ground in Kilometers per hour		 
 				String speedKm = splitter.next();
+               // SharedInfo.getSelf().setSpeed(Double.parseDouble(speedKm));
+               // SharedInfo.getSelf().mainActivity.getStatusFragment().setTextSpeed(Double.parseDouble(speedKm));
 				// K
 				splitter.next();
 				// for NMEA 0183 version 3.00 active the Mode indicator field is added

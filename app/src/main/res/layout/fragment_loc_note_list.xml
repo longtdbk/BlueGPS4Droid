@@ -5,7 +5,101 @@
     android:background="@color/cast_expanded_controller_background_color"
     android:orientation="vertical"
     >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+        <Button
+            android:id="@+id/btClearAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear All"
+            />
+        <Button
+            android:id="@+id/btExportFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Export File"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="1dp"
+        android:paddingTop="5dp">
 
+        <TextView
+            android:id="@+id/tvTimeItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="@dimen/info_command_size"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:background="@drawable/border"
+            android:gravity="center_horizontal"
+            android:text="Time"
+            android:textColor="#C1C1C1"
+            android:textSize="@dimen/text_title_size"
+            android:textStyle="bold"
+            android:layout_marginRight="1dp"/>
+
+
+
+        <TextView
+            android:id="@+id/tvLatItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="@dimen/info_command_size"
+            android:background="@drawable/border"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:text="Latitude"
+            android:textColor="#C1C1C1"
+            android:textSize="@dimen/text_title_size"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"/>
+
+
+        <TextView
+            android:id="@+id/tvLongItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="@dimen/info_command_size"
+            android:ellipsize="marquee"
+            android:background="@drawable/border"
+            android:maxLines="1"
+            android:text="Longitude"
+            android:textColor="#C1C1C1"
+            android:textSize="@dimen/text_title_size"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"/>
+
+
+
+        <TextView
+            android:id="@+id/tvNoteItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:width="@dimen/info_command_size"
+            android:background="@drawable/border"
+            android:ellipsize="marquee"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="Note"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/text_title_size"
+            android:textStyle="bold"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"/>
+
+    </LinearLayout>
     <ListView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list_loc_note"
