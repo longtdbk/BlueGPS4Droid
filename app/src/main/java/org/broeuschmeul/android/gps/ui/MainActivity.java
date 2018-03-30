@@ -1,9 +1,11 @@
 package org.broeuschmeul.android.gps.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.multidex.MultiDex;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter.addFrag(gMapFragment, "MAP");
         mSectionsPagerAdapter.addFrag(statusFragment, "STATUS");
         mSectionsPagerAdapter.addFrag(locNoteFragment, "LOCATION LIST");
+
         mViewPager = (ViewPager) findViewById(R.id.container);
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -47,9 +50,19 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
+        tabLayout.getTabAt(0).setIcon(R.drawable.map);
+        tabLayout.getTabAt(1).setIcon(R.drawable.graph);
+        tabLayout.getTabAt(2).setIcon(R.drawable.checklist);
 
         SharedInfo sharedInfo = new SharedInfo();
         sharedInfo.mainActivity = this;
+        //Realm.init(this); //initialize other plugins
+    }
+
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        MultiDex.install(this);
     }
 
     public StatusFragment getStatusFragment(){

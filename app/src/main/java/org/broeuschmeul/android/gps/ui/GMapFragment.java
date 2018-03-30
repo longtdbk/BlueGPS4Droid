@@ -9,16 +9,19 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +40,8 @@ import org.broeuschmeul.android.gps.db.util.LocNoteController;
 
 import static org.broeuschmeul.android.gps.bluetooth.provider.R.id.map;
 
+;
+
 /**
  * Created by Admin on 09/03/2018.
  */
@@ -46,11 +51,13 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
     double longitude, latitude;
     private int currentInd;
     private final int[] MAP_TYPES = new int []{GoogleMap.MAP_TYPE_NORMAL,GoogleMap.MAP_TYPE_SATELLITE,GoogleMap.MAP_TYPE_HYBRID,GoogleMap.MAP_TYPE_TERRAIN};
-    FloatingActionButton btnMapType;
     ImageButton btnCreate;
+    ImageButton btnMapChange;
+    ImageButton btnShowInfo;
     Marker mMarker;
     private LocNoteController locNoteController;
     private EditText editNote;
+    PopupWindow mPopupWindow;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,9 +70,9 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
         //mMarker = new Marker();
-        btnMapType = (FloatingActionButton)v.findViewById(R.id.btMapType);
         btnCreate = (ImageButton)v.findViewById(R.id.btCreate);
-
+        btnShowInfo = (ImageButton)v.findViewById(R.id.btShowInfo);
+        btnMapChange = (ImageButton)v.findViewById(R.id.btMapChange);
 
 
         return v;
@@ -89,7 +96,22 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
         mMap.setOnMarkerClickListener(this);
         mMap.setOnMapClickListener(this);
 
-        btnMapType.setOnClickListener(new View.OnClickListener() {
+
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayAddLocNoteDialog();
+            }
+        });
+
+        btnShowInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopUp();
+            }
+        });
+
+        btnMapChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentInd ++;
@@ -98,12 +120,6 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
             }
         });
 
-        btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayAddLocNoteDialog();
-            }
-        });
 
         Thread thread = new Thread(){
             @Override
@@ -135,6 +151,7 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
                 .findFragmentById(map);
         if (f != null)
             getActivity().getFragmentManager().beginTransaction().remove(f).commit();
+        mPopupWindow.dismiss();
     }
 
 
@@ -144,7 +161,7 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
         // new version must check permission :)
         try {
             Location currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (currentLocation == null){
+            if (currentLocation == null) {
                 currentLocation = new Location("");
                 currentLocation.setLatitude(21.0345);
                 currentLocation.setLongitude(105.827);
@@ -154,6 +171,8 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
             LatLng myPos = new LatLng(latitude,longitude);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                     myPos, 18));
+
+
         }catch(SecurityException e){
             Log.d("GPSBlue","Error " + e.getMessage());
         }
@@ -193,11 +212,11 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
 //                            " has been clicked " + clickCount + " times.",
 //                    Toast.LENGTH_SHORT).show();
         }
+        showPopUp();
+        //displayAddLocNoteDialog();
+        //RelativeLayout mRelativeLayout  = (RelativeLayout)activity.findViewById(R.id.rl);
 
-        displayAddLocNoteDialog();
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
+
         return false;
     }
 
@@ -277,5 +296,34 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
             }
             mMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("New Marker"));
         }
+    }
+
+    public void showPopUp(){
+        View customView = activity.getLayoutInflater().inflate(R.layout.custom_layout,null);
+        mPopupWindow = new PopupWindow(
+                customView,
+                ViewPager.LayoutParams.WRAP_CONTENT,
+                ViewPager.LayoutParams.WRAP_CONTENT
+        );
+        if(Build.VERSION.SDK_INT>=21){
+            mPopupWindow.setElevation(5.0f);
+        }
+
+        ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
+        TextView txtView = (TextView) customView.findViewById(R.id.tv);
+        latitude = SharedInfo.getSelf().getLattitude();
+        longitude = SharedInfo.getSelf().getLongitude();
+        double accuracy = SharedInfo.getSelf().getAccuracy();
+        txtView.setText("Latitude:" + latitude + " --- Longitude:" + longitude + " -- Accuracy: " + accuracy);
+        // Set a click listener for the popup window close button
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Dismiss the popup window
+                mPopupWindow.dismiss();
+            }
+        });
+        mPopupWindow.showAtLocation(getView(), Gravity.LEFT,-60,-200);
+
     }
 }

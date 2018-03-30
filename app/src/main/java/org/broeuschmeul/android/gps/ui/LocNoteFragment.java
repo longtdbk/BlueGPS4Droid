@@ -45,7 +45,6 @@ public class LocNoteFragment extends Fragment {
 
     private static final String LOG_TAG = "BlueGPS";
 
-
     private Activity activity;
     private LocNoteController locNoteController;
     private LocNoteAdapter adapter;
@@ -55,6 +54,16 @@ public class LocNoteFragment extends Fragment {
     private Button btnExport;
     private Button btnClearAll;
     private EditText editNote;
+
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,6 +115,8 @@ public class LocNoteFragment extends Fragment {
         });
         return v;
     }
+
+
 
     private List<LocationNote> getData(){
         LocNoteController locNoteController = new LocNoteController(getContext());
