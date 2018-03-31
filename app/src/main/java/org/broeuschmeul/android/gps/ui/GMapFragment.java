@@ -151,7 +151,9 @@ public class GMapFragment extends Fragment implements OnMapReadyCallback, OnMark
                 .findFragmentById(map);
         if (f != null)
             getActivity().getFragmentManager().beginTransaction().remove(f).commit();
-        mPopupWindow.dismiss();
+        if (mPopupWindow!= null) {
+            mPopupWindow.dismiss();
+        }
     }
 
 
