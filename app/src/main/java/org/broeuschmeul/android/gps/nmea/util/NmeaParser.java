@@ -60,7 +60,7 @@ public class NmeaParser {
 	private boolean hasGGA = false;
 	private boolean hasRMC = false;
 	private LocationManager lm;
-	private float precision = 10f;
+	private float precision = 1f;
 	private boolean mockGpsAutoEnabled = false;
 	private boolean mockGpsEnabled = false;
 	private String mockLocationProvider = null;
@@ -354,7 +354,7 @@ public class NmeaParser {
 					}
 					if (hdop != null && !hdop.equals("")){
 						fix.setAccuracy(Float.parseFloat(hdop)*precision);
-                        //SharedInfo.getSelf().setAccuracy(fix.getAccuracy());
+                        SharedInfo.getSelf().setAccuracy(fix.getAccuracy());
                         //SharedInfo.getSelf().mainActivity.getStatusFragment().setTextAccuracy(fix.getAccuracy());
 					}
 					if (alt != null && !alt.equals("")){
@@ -443,13 +443,12 @@ public class NmeaParser {
 					}
 					if (lon != null && !lon.equals("")){
 						fix.setLongitude(parseNmeaLongitude(lon,lonDir));
-                        //SharedInfo.getSelf().setLongitude(fix.getLongitude());
-                        //SharedInfo.getSelf().mainActivity.getStatusFragment().setTextLatLon(fix.getLatitude(),fix.getLongitude());
+                        SharedInfo.getSelf().setLongitude(fix.getLongitude());
 
 					}
 					if (speed != null && !speed.equals("")){
 						fix.setSpeed(parseNmeaSpeed(speed, "N"));
-                        //SharedInfo.getSelf().setSpeed(fix.getSpeed());
+                        SharedInfo.getSelf().setSpeed(fix.getSpeed());
                         //SharedInfo.getSelf().mainActivity.getStatusFragment().setTextSpeed(fix.getSpeed());
 					} 
 					if (bearing != null && !bearing.equals("")){
